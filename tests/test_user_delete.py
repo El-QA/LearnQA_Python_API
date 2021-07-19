@@ -1,9 +1,12 @@
+import allure
 from lib.assertions import Assertions
 from lib.base_case import BaseCase
 from lib.my_requests import MyRequests
 
 
 class TestUserDelete(BaseCase):
+
+    @allure.severity(allure.severity_level.CRITICAL)
     def test_delete_protected_user(self):
         # LOGIN
         date = {
@@ -36,6 +39,7 @@ class TestUserDelete(BaseCase):
         Assertions.assert_code_status(response_get, 200)
         Assertions.assert_json_has_keys(response_get, expected_fields)
 
+    @allure.severity(allure.severity_level.CRITICAL)
     def test_delete_user(self):
         # REGISTER
         register_data = self.prepare_registration_data()
@@ -75,6 +79,7 @@ class TestUserDelete(BaseCase):
         )
         Assertions.assert_code_status(response_get, 404)
 
+    @allure.severity(allure.severity_level.NORMAL)
     def test_delete_as_not_same_user(self):
         # REGISTER
         register_data = self.prepare_registration_data()

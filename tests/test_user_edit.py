@@ -1,9 +1,12 @@
+import allure
 from lib.assertions import Assertions
 from lib.base_case import BaseCase
 from lib.my_requests import MyRequests
 
 
 class TestUserEdit(BaseCase):
+
+    @allure.severity(allure.severity_level.CRITICAL)
     def test_edit_just_created_user(self):
         # REGISTER
         register_data = self.prepare_registration_data()
@@ -52,6 +55,7 @@ class TestUserEdit(BaseCase):
             "Wrong name of the user after edit"
         )
 
+    @allure.severity(allure.severity_level.MINOR)
     def test_edit_not_auth(self):
         # REGISTER
         register_data = self.prepare_registration_data()
@@ -73,6 +77,7 @@ class TestUserEdit(BaseCase):
         assert response.content.decode("utf-8") == "Auth token not supplied", \
             f"Unexpected response content {response.content}"
 
+    @allure.severity(allure.severity_level.MINOR)
     def test_edit_auth_as_not_same_user(self):
         # REGISTER
         register_data = self.prepare_registration_data()
@@ -141,6 +146,7 @@ class TestUserEdit(BaseCase):
             "Wrong name of the user after edit"
         )
 
+    @allure.severity(allure.severity_level.MINOR)
     def test_edit_user_email_with_inappropriate_value(self):
         # REGISTER
         register_data = self.prepare_registration_data()
@@ -175,6 +181,7 @@ class TestUserEdit(BaseCase):
         assert response.content.decode("utf-8") == "Invalid email format", \
             f"Unexpected response content {response.content}"
 
+    @allure.severity(allure.severity_level.MINOR)
     def test_edit_user_name_with_short_value(self):
         # REGISTER
         register_data = self.prepare_registration_data()

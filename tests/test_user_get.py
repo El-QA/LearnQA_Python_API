@@ -1,9 +1,12 @@
+import allure
 from lib.assertions import Assertions
 from lib.base_case import BaseCase
 from lib.my_requests import MyRequests
 
-
+@allure.story("Get user info cases")
 class TestUserGet(BaseCase):
+
+    @allure.severity(allure.severity_level.NORMAL)
     def test_get_user_details_not_auth(self):
         response = MyRequests.get("/user/2")
 
@@ -12,6 +15,7 @@ class TestUserGet(BaseCase):
         Assertions.assert_json_has_not_key(response, "firstName")
         Assertions.assert_json_has_not_key(response, "lastName")
 
+    @allure.severity(allure.severity_level.CRITICAL)
     def test_get_user_details_auth_as_same_user(self):
         date = {
             'email': 'vinkotov@example.com',
@@ -31,6 +35,7 @@ class TestUserGet(BaseCase):
         expected_fields = ["username", "email", "firstName", "lastName"]
         Assertions.assert_json_has_keys(response2, expected_fields)
 
+    @allure.severity(allure.severity_level.MINOR)
     def test_get_user_details_auth_as_not_same_user(self):
         # REGISTER
         register_data = self.prepare_registration_data()
